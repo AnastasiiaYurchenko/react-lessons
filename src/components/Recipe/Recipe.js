@@ -1,35 +1,46 @@
 import PropTypes from 'prop-types';
 import { BsAlarm } from 'react-icons/bs';
 import { AiOutlinePieChart } from 'react-icons/ai';
-import { HiOutlineChartBar } from 'react-icons/hi';
-import { RecipeInfo, InfoBlock, Name, BadgeList, Badge } from './Recipe.styled';
+import { HiOutlineChartBar, HiTrash, HiZoomIn } from 'react-icons/hi';
+import {
+  Container,
+  RecipeInfo,
+  InfoBlock,
+  Name,
+  Image,
+  Meta,
+  BadgeList,
+  Badge,
+  Actions,
+} from './Recipe.styled';
 
 export const Recipe = ({
-  item: { name, image, time, servings, calories, difficulty },
+  item: { id, name, image, time, servings, calories, difficulty },
+  onDelete,
 }) => {
-  console.log(difficulty);
+  // console.log(difficulty);
   return (
-    <section>
-      <img src={image} alt={name} width="240" />
-      <Name>{name}</Name>
+    <Container>
+      <Meta>
+        <Image src={image} alt={name} width="240" />
+        <Name>{name}</Name>
 
-      <RecipeInfo>
-        <InfoBlock>
-          {/* <span>icon</span> */}
-          <BsAlarm size="24" />
-          <span>{time} min</span>
-        </InfoBlock>
-        <InfoBlock>
-          <AiOutlinePieChart size="24" />
-          <span>{servings} servings</span>
-        </InfoBlock>
-        <InfoBlock>
-          <HiOutlineChartBar size="24" />
-          <span>{calories} calories</span>
-        </InfoBlock>
-      </RecipeInfo>
+        <RecipeInfo>
+          <InfoBlock>
+            {/* <span>icon</span> */}
+            <BsAlarm size="24" />
+            <span>{time} min</span>
+          </InfoBlock>
+          <InfoBlock>
+            <AiOutlinePieChart size="24" />
+            <span>{servings} servings</span>
+          </InfoBlock>
+          <InfoBlock>
+            <HiOutlineChartBar size="24" />
+            <span>{calories} calories</span>
+          </InfoBlock>
+        </RecipeInfo>
 
-      <div>
         <h3>Difficulty</h3>
         <BadgeList>
           <Badge active={difficulty === 'easy'} type="easy">
@@ -45,8 +56,17 @@ export const Recipe = ({
             {/* {difficulty === 'hard' && ' is Active'} */}
           </Badge>
         </BadgeList>
-      </div>
-    </section>
+
+        <Actions>
+          <button aria-label="Delete" onClick={() => onDelete(id)}>
+            <HiTrash />
+          </button>
+          <button aria-label="Zoom">
+            <HiZoomIn />
+          </button>
+        </Actions>
+      </Meta>
+    </Container>
   );
 };
 
