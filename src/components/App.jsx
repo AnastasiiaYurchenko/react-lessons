@@ -25,7 +25,6 @@ export class App extends Component {
     return (
       <Layout>
         <RecipeList items={this.state.recipes} onDelete={this.deleteRecipe} />
-        <div>Image modal</div>
         <GlobalStyle />
       </Layout>
     );
