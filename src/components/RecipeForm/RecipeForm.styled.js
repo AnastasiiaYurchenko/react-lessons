@@ -15,7 +15,7 @@ export const FormField = styled.label`
   flex-direction: column;
 `;
 
-// export const ErrorMessage = styled(FormikErrorMessage)`
-//   font-size: 14px;
-//   color: ${p => p.theme.colors.error};
-// `;
+export const ErrorMessage = styled(FormikErrorMessage)`
+  font-size: 14px;
+  color: ${p => p.theme.colors.error};
+`;

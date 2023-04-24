@@ -11,6 +11,13 @@ export class App extends Component {
     recipes: initialRecipes,
   };
 
+  addRecipe = newRecipe => {
+    // console.log(newRecipe);
+    this.setState(prevState => ({
+      recipes: [...prevState.recipes, newRecipe],
+    }));
+  };
+
   deleteRecipe = recipeId => {
     this.setState(prevState => ({
       recipes: prevState.recipes.filter(recipe => recipe.id !== recipeId),
@@ -26,7 +33,7 @@ export class App extends Component {
   render() {
     return (
       <Layout>
-        <RecipeForm />
+        <RecipeForm onSave={this.addRecipe} />
         <RecipeList items={this.state.recipes} onDelete={this.deleteRecipe} />
         <GlobalStyle />
       </Layout>

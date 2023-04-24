@@ -16,6 +16,7 @@ const theme = {
     white: '#fff',
     red: 'red',
     green: 'green',
+    error: 'red',
     // randomColor: 'RandomHexColor()',
   },
   radii: {
