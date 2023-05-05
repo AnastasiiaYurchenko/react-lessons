@@ -13,96 +13,171 @@ import {
   Badge,
   Actions,
 } from './Recipe.styled';
-import { Component } from 'react';
+import { useState } from 'react';
 import { ImageModal } from 'components/ImageModal/ImageModal';
 
-export class Recipe extends Component {
-  static propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      time: PropTypes.number.isRequired,
-      servings: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']).isRequired,
-    }).isRequired,
-  };
+// export class Recipe extends Component {
+//   static propTypes = {
+//     onDelete: PropTypes.func.isRequired,
+//     item: PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       time: PropTypes.number.isRequired,
+//       servings: PropTypes.number.isRequired,
+//       calories: PropTypes.number.isRequired,
+//       image: PropTypes.string.isRequired,
+//       difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']).isRequired,
+//     }).isRequired,
+//   };
 
-  state = {
-    selectedImg: null,
-  };
+//   state = {
+//     selectedImg: null,
+//   };
 
-  setSelectedImg = () => {
-    this.setState({ selectedImg: this.props.item.image });
-  };
+//   setSelectedImg = () => {
+//     this.setState({ selectedImg: this.props.item.image });
+//   };
 
-  closeModal = () => {
-    this.setState({ selectedImg: null });
-  };
+//   closeModal = () => {
+//     this.setState({ selectedImg: null });
+//   };
 
-  render() {
-    const { selectedImg } = this.state;
-    const {
-      item: { id, name, image, time, servings, calories, difficulty },
-      onDelete,
-    } = this.props;
+//   render() {
+//     const { selectedImg } = this.state;
+//     const {
+//       item: { id, name, image, time, servings, calories, difficulty },
+//       onDelete,
+//     } = this.props;
 
-    return (
-      <Container>
-        <Meta>
-          <Image src={image} alt={name} width="240" />
-          <Name>{name}</Name>
+//     return (
+//       <Container>
+//         <Meta>
+//           <Image src={image} alt={name} width="240" />
+//           <Name>{name}</Name>
 
-          <RecipeInfo>
-            <InfoBlock>
-              {/* <span>icon</span> */}
-              <BsAlarm size="24" />
-              <span>{time} min</span>
-            </InfoBlock>
-            <InfoBlock>
-              <AiOutlinePieChart size="24" />
-              <span>{servings} servings</span>
-            </InfoBlock>
-            <InfoBlock>
-              <HiOutlineChartBar size="24" />
-              <span>{calories} calories</span>
-            </InfoBlock>
-          </RecipeInfo>
+//           <RecipeInfo>
+//             <InfoBlock>
+//               {/* <span>icon</span> */}
+//               <BsAlarm size="24" />
+//               <span>{time} min</span>
+//             </InfoBlock>
+//             <InfoBlock>
+//               <AiOutlinePieChart size="24" />
+//               <span>{servings} servings</span>
+//             </InfoBlock>
+//             <InfoBlock>
+//               <HiOutlineChartBar size="24" />
+//               <span>{calories} calories</span>
+//             </InfoBlock>
+//           </RecipeInfo>
 
-          <h3>Difficulty</h3>
-          <BadgeList>
-            <Badge active={difficulty === 'easy'} type="easy">
-              Easy
-              {/* {difficulty === 'easy' && ' is Active'} */}
-            </Badge>
-            <Badge active={difficulty === 'medium'} type="medium">
-              Medium
-              {/* {difficulty === 'medium' && ' is Active'} */}
-            </Badge>
-            <Badge active={difficulty === 'hard'} type="hard">
-              Hard
-              {/* {difficulty === 'hard' && ' is Active'} */}
-            </Badge>
-          </BadgeList>
+//           <h3>Difficulty</h3>
+//           <BadgeList>
+//             <Badge active={difficulty === 'easy'} type="easy">
+//               Easy
+//               {/* {difficulty === 'easy' && ' is Active'} */}
+//             </Badge>
+//             <Badge active={difficulty === 'medium'} type="medium">
+//               Medium
+//               {/* {difficulty === 'medium' && ' is Active'} */}
+//             </Badge>
+//             <Badge active={difficulty === 'hard'} type="hard">
+//               Hard
+//               {/* {difficulty === 'hard' && ' is Active'} */}
+//             </Badge>
+//           </BadgeList>
 
-          <Actions>
-            <button aria-label="Delete" onClick={() => onDelete(id)}>
-              <HiTrash />
-            </button>
-            <button aria-label="Zoom" onClick={this.setSelectedImg}>
-              <HiZoomIn />
-            </button>
-          </Actions>
-        </Meta>
+//           <Actions>
+//             <button aria-label="Delete" onClick={() => onDelete(id)}>
+//               <HiTrash />
+//             </button>
+//             <button aria-label="Zoom" onClick={this.setSelectedImg}>
+//               <HiZoomIn />
+//             </button>
+//           </Actions>
+//         </Meta>
 
-        <ImageModal
-          isOpen={selectedImg !== null}
-          onClose={this.closeModal}
-          image={selectedImg}
-        />
-      </Container>
-    );
-  }
-}
+//         <ImageModal
+//           isOpen={selectedImg !== null}
+//           onClose={this.closeModal}
+//           image={selectedImg}
+//         />
+//       </Container>
+//     );
+//   }
+// }
+
+export const Recipe = ({
+  item: { id, name, image, time, servings, calories, difficulty },
+  onDelete,
+}) => {
+  const [selectedImg, setSelectedImg] = useState(null);
+  return (
+    <Container>
+      <Meta>
+        <Image src={image} alt={name} width="240" />
+        <Name>{name}</Name>
+
+        <RecipeInfo>
+          <InfoBlock>
+            {/* <span>icon</span> */}
+            <BsAlarm size="24" />
+            <span>{time} min</span>
+          </InfoBlock>
+          <InfoBlock>
+            <AiOutlinePieChart size="24" />
+            <span>{servings} servings</span>
+          </InfoBlock>
+          <InfoBlock>
+            <HiOutlineChartBar size="24" />
+            <span>{calories} calories</span>
+          </InfoBlock>
+        </RecipeInfo>
+
+        <h3>Difficulty</h3>
+        <BadgeList>
+          <Badge active={difficulty === 'easy'} type="easy">
+            Easy
+            {/* {difficulty === 'easy' && ' is Active'} */}
+          </Badge>
+          <Badge active={difficulty === 'medium'} type="medium">
+            Medium
+            {/* {difficulty === 'medium' && ' is Active'} */}
+          </Badge>
+          <Badge active={difficulty === 'hard'} type="hard">
+            Hard
+            {/* {difficulty === 'hard' && ' is Active'} */}
+          </Badge>
+        </BadgeList>
+
+        <Actions>
+          <button aria-label="Delete" onClick={() => onDelete(id)}>
+            <HiTrash />
+          </button>
+          <button aria-label="Zoom" onClick={() => setSelectedImg(image)}>
+            <HiZoomIn />
+          </button>
+        </Actions>
+      </Meta>
+
+      <ImageModal
+        isOpen={selectedImg !== null}
+        onClose={() => setSelectedImg(null)}
+        image={selectedImg}
+      />
+    </Container>
+  );
+};
+
+Recipe.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    time: PropTypes.number.isRequired,
+    servings: PropTypes.number.isRequired,
+    calories: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']).isRequired,
+  }).isRequired,
+};
