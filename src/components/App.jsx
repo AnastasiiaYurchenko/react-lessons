@@ -1,42 +1,22 @@
-import { RecipeList } from './RecipeList/RecipeList';
-import initialRecipes from '../recepies.json';
-import { GlobalStyle } from './GlobalStyle';
-import { Layout } from './Layout/Layout';
-import { Component } from 'react';
-// import { Formik } from 'formik';
-import { RecipeForm } from './RecipeForm/RecipeForm';
+import DogDetails from 'pages/DogDetails';
+import Dogs from 'pages/Dogs';
+import Home from 'pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { Gallery } from './Gallery';
+import { SubBreeds } from './SubBreeds';
 
-export class App extends Component {
-  state = {
-    recipes: initialRecipes,
-  };
-
-  addRecipe = newRecipe => {
-    // console.log(newRecipe);
-    this.setState(prevState => ({
-      recipes: [...prevState.recipes, newRecipe],
-    }));
-  };
-
-  deleteRecipe = recipeId => {
-    this.setState(prevState => ({
-      recipes: prevState.recipes.filter(recipe => recipe.id !== recipeId),
-    }));
-    console.log(recipeId);
-
-    // то же самое, что записать (возвращает новій обьект)
-    // this.setState(prevState => {
-    //   return {}
-    // })
-  };
-
-  render() {
-    return (
-      <Layout>
-        <RecipeForm onSave={this.addRecipe} />
-        <RecipeList items={this.state.recipes} onDelete={this.deleteRecipe} />
-        <GlobalStyle />
-      </Layout>
-    );
-  }
-}
+export const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="dogs" element={<Dogs />} />
+        <Route path="dogs/:dogId" element={<DogDetails />}>
+          <Route path="subbbreeds" element={<SubBreeds />} />
+          <Route path="gallery" element={<Gallery />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
+};
